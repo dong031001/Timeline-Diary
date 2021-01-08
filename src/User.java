@@ -1,5 +1,7 @@
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.time.Clock;
+import java.time.Instant;
 import java.util.Date;
 
 public class User {
@@ -13,6 +15,8 @@ public class User {
 
         this.username = username;
         this.passwordChar = charize(password);
+        this.userID = Main.getNewUserID();
+        this.creationDate = Date.from(Instant.now());
 
     }
 
@@ -40,6 +44,7 @@ public class User {
     }
 
     public String serialize(){
+        System.out.println(IOHandler.getGson().toJson(this));
         return IOHandler.getGson().toJson(this);
     }
 
