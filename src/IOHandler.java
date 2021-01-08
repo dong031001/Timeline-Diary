@@ -62,9 +62,9 @@ public class IOHandler {
             return new ConfigHandler();
         }
         Scanner scanner = new Scanner(configFile);
-        String jsonObject = "";
-        while(scanner.hasNext()) jsonObject = jsonObject+scanner.next();
-        return ConfigHandler.deserialize(jsonObject);
+        StringBuilder jsonObject = new StringBuilder();
+        while(scanner.hasNext()) jsonObject.append(scanner.next());
+        return ConfigHandler.deserialize(jsonObject.toString());
     }
 
     public static void addUser(String password, String username) {
@@ -95,5 +95,13 @@ public class IOHandler {
         writer.write(Main.getConfig().serialize());
         writer.flush();
         writer.close();
+    }
+
+    public static HashMap<Integer, Diary> getDiaryHashMap() {
+        return diaryHashMap;
+    }
+
+    public static HashMap<Integer, User> getUserHashMap() {
+        return userHashMap;
     }
 }

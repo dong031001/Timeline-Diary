@@ -55,4 +55,8 @@ public class User {
     public int getUserID() {
         return userID;
     }
+
+    public String getUsername() {
+        return username;
+    }
 }

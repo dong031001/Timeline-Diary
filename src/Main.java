@@ -8,6 +8,10 @@ public class Main {
 
     private static ConfigHandler config = null;
 
+    public static User currentUser = null;
+
+    public static JFrame frame = null;
+
     public static void main(String[] args) throws IOException {
 
         try {
@@ -19,7 +23,7 @@ public class Main {
         config = IOHandler.getConfigHandler();
         IOHandler.initialize();
 
-        JFrame frame = new JFrame("Timeline Diary");
+        frame = new JFrame("Timeline Diary");
         frame.setContentPane(new Login().getLoginPanel());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();

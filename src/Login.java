@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.security.NoSuchAlgorithmException;
 
 public class Login {
     private JButton loginButton;
@@ -23,6 +24,31 @@ public class Login {
             }catch (NullPointerException exception){
                 exception.printStackTrace();
             }
+        });
+
+        loginButton.addActionListener(event -> {
+
+            for(Integer userID : IOHandler.getUserHashMap().keySet()){
+                User user = IOHandler.getUserHashMap().get(userID);
+                try {
+                    if(user.getUsername().equals(textField1.getText())
+                            && user.isRightPassword(new String(passwordField1.getPassword()))){
+                        Main.currentUser = user;
+                        Main.frame.dispose();
+
+                        Main.frame = new JFrame("Timeline Diary");
+                        Main.frame.setContentPane(new Menu().panel1);
+                        Main.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                        Main.frame.pack();
+                        Main.frame.setVisible(true);
+
+                    }
+                } catch (NoSuchAlgorithmException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
         });
     }
 
