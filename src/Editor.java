@@ -8,10 +8,11 @@ public class Editor {
     private JTextPane titlePane;
     private JTextPane weatherPane;
 
-    public Editor(Diary diary, JFrame jFrame){
+    public Editor(Diary diary, JFrame jFrame, Menu menu){
         if(diary!=null){
             titlePane.setText(diary.getTitle());
             weatherPane.setText(diary.getWeather());
+            editorPane1.setText(diary.getText());
         } else {
             titlePane.setText("Untitled");
         }
@@ -28,6 +29,7 @@ public class Editor {
                 }
             }
             jFrame.dispose();
+            menu.refreshData();
         });
 
     }

@@ -58,4 +58,21 @@ public class Diary implements Comparable<Diary> {
     public String getWeather() {
         return weather;
     }
+
+    @Override
+    public String toString() {
+        return title;
+    }
+
+    public String getDate() {
+        return creationDate.toLocaleString();
+    }
+
+    public int getLength() {
+        return text.length();
+    }
+
+    public String getText() {
+        return text;
+    }
 }

@@ -31,7 +31,7 @@ public class Login {
             for(Integer userID : IOHandler.getUserHashMap().keySet()){
                 User user = IOHandler.getUserHashMap().get(userID);
                 try {
-                    if(user.getUsername().equals(textField1.getText())
+                    if(user.getUsername().equals(textField1.getText().toLowerCase())
                             && user.isRightPassword(new String(passwordField1.getPassword()))){
                         Main.currentUser = user;
                         Main.frame.dispose();

@@ -14,24 +14,46 @@ public class Menu {
     private JLabel dateValueLabel;
     private JButton deleteButton;
 
-
+    private Diary currentDiary = null;
+    private Diary[] currentDiaryList;
 
     public Menu(){
 
+        refreshData();
 
         newButton.addActionListener(event->{
-            JFrame editorFrame = new JFrame("Timeline Diary Editor");
-            editorFrame.setContentPane(new Editor(null, editorFrame).mainPanel);
-            editorFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            editorFrame.pack();
-            editorFrame.setVisible(true);
+            openEditor(null);
+            refreshData();
         });
 
+        editButton.addActionListener(event->{
+            if(currentDiary==null) return;
+            openEditor(currentDiary);
+            refreshData();
+        });
 
+        diaryList.addListSelectionListener(event -> {
+
+            if(diaryList.getSelectedIndex()==-1) return;
+
+            this.currentDiary = currentDiaryList[diaryList.getSelectedIndex()];
+            titleValueLabel.setText(currentDiary.getTitle());
+            dateValueLabel.setText(currentDiary.getDate());
+            lengthValueLabel.setText(String.valueOf(currentDiary.getLength()));
+        });
     }
 
-    private void refreshData(){
-        diaryList.setListData(getTitlesFromUser(Main.currentUser));
+    private void openEditor(Diary diary){
+        JFrame editorFrame = new JFrame("Timeline Diary Editor");
+        editorFrame.setContentPane(new Editor(diary, editorFrame, this).mainPanel);
+        editorFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        editorFrame.pack();
+        editorFrame.setVisible(true);
+    }
+
+    public void refreshData(){
+        currentDiaryList = getDiariesFromUser(Main.currentUser);
+        diaryList.setListData(currentDiaryList);
     }
 
     private static Diary[] getDiariesFromUser(User user){

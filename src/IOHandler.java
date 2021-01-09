@@ -48,9 +48,9 @@ public class IOHandler {
 
         for(File file : diaryFolder.listFiles()){
             Scanner scanner = new Scanner(file);
-            StringBuilder text = new StringBuilder();
-            while(scanner.hasNext()) text.append(scanner.next());
-            Diary diary = Diary.deserialize(text.toString());
+            String text = "";
+            while(scanner.hasNext()) text= text+scanner.next()+" ";
+            Diary diary = Diary.deserialize(text);
             diaryHashMap.put(diary.getDiaryID(), diary);
         }
     }
