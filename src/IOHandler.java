@@ -111,7 +111,7 @@ public class IOHandler {
         }
     }
 
-    private static void saveConfig() throws IOException {
+    static void saveConfig() throws IOException {
         File file = new File("timelineDiary.json");
         FileWriter writer = new FileWriter(file, false);
         writer.write(Main.getConfig().serialize());

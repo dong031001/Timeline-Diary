@@ -21,6 +21,8 @@ public class Main {
         }
 
         config = IOHandler.getConfigHandler();
+        IOHandler.saveConfig();
+
         IOHandler.initialize();
 
         frame = new JFrame("Timeline Diary");

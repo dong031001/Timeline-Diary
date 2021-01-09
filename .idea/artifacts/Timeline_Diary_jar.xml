@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Timeline-Diary:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Timeline_Diary_jar</output-path>
+    <root id="archive" name="Timeline-Diary.jar">
+      <element id="module-output" name="Timeline-Diary" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/gson-2.8.6.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
