@@ -75,4 +75,8 @@ public class Diary implements Comparable<Diary> {
     public String getText() {
         return text;
     }
+
+    public void setDisposed() {
+        this.authorID=0;
+    }
 }

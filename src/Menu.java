@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -32,6 +33,30 @@ public class Menu {
             refreshData();
         });
 
+        viewButton.addActionListener(event->{
+            openViewer(currentDiary);
+        });
+
+        deleteButton.addActionListener(event -> {
+
+            int result = JOptionPane.showConfirmDialog(panel1, "Are you sure to delete diary "+currentDiary.getTitle()+" ?", "Confirmation", JOptionPane.YES_NO_OPTION);
+
+            if(result!=JOptionPane.OK_OPTION) return;
+
+            currentDiary.setDisposed();
+
+            try {
+                IOHandler.saveDiaries();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            IOHandler.getDiaryHashMap().remove(currentDiary.getDiaryID());
+
+            refreshData();
+
+        });
+
         diaryList.addListSelectionListener(event -> {
 
             if(diaryList.getSelectedIndex()==-1) return;
@@ -49,6 +74,14 @@ public class Menu {
         editorFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         editorFrame.pack();
         editorFrame.setVisible(true);
+    }
+
+    private void openViewer(Diary diary){
+        JFrame viewerFrame = new JFrame("Timeline Diary Viewer");
+        viewerFrame.setContentPane((new View(diary, viewerFrame)).mainPanel);
+        viewerFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        viewerFrame.pack();
+        viewerFrame.setVisible(true);
     }
 
     public void refreshData(){

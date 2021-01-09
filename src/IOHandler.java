@@ -126,4 +126,13 @@ public class IOHandler {
     public static HashMap<Integer, User> getUserHashMap() {
         return userHashMap;
     }
+
+    public static void resetDiaryFolder() throws IOException {
+        File diaryFolder = new File("diaries");
+        if(!diaryFolder.isDirectory()) diaryFolder.mkdir();
+        for(File file : diaryFolder.listFiles()){
+            if(file.isFile()) System.out.println(file.delete());
+        }
+        saveDiaries();
+    }
 }
