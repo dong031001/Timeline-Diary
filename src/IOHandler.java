@@ -34,10 +34,9 @@ public class IOHandler {
 
         for(File file : userFolder.listFiles()){
             Scanner scanner = new Scanner(file);
-            String text = "";
-            while(scanner.hasNext()) text = text+scanner.next();
-            System.out.println(text);
-            User user = User.deserialize(text);
+            StringBuilder text = new StringBuilder();
+            while(scanner.hasNext()) text.append(scanner.next());
+            User user = User.deserialize(text.toString());
             userHashMap.put(user.getUserID(), user);
         }
     }
@@ -49,8 +48,9 @@ public class IOHandler {
 
         for(File file : diaryFolder.listFiles()){
             Scanner scanner = new Scanner(file);
-            String text = scanner.next();
-            Diary diary = Diary.deserialize(text);
+            StringBuilder text = new StringBuilder();
+            while(scanner.hasNext()) text.append(scanner.next());
+            Diary diary = Diary.deserialize(text.toString());
             diaryHashMap.put(diary.getDiaryID(), diary);
         }
     }
@@ -84,6 +84,28 @@ public class IOHandler {
             if(!file.exists()) file.createNewFile();
             FileWriter writer = new FileWriter(file, false);
             writer.write(userHashMap.get(userID).serialize());
+            writer.flush();
+            writer.close();
+        }
+    }
+
+    public static void addDiary(String title, String text, String weather, User user){
+        try {
+            Diary newDiary = new Diary(user.getUserID(), title, text, weather);
+            diaryHashMap.put(newDiary.getDiaryID(), newDiary);
+            saveDiaries();
+            saveConfig();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public static void saveDiaries() throws IOException {
+        for(Integer diaryID : diaryHashMap.keySet()){
+            File file = new File("diaries/"+diaryID+".json");
+            if(!file.exists()) file.createNewFile();
+            FileWriter writer = new FileWriter(file, false);
+            writer.write(diaryHashMap.get(diaryID).serialize());
             writer.flush();
             writer.close();
         }

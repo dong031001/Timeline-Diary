@@ -14,8 +14,8 @@ public class Login {
             try {
                 String username = JOptionPane.showInputDialog("Input your username").toLowerCase();
                 String password = JOptionPane.showInputDialog("Input your password");
-                String password1 = JOptionPane.showInputDialog("Repeat your password");
-                if (!password.equals(password1)) {
+                String repeatedPassword = JOptionPane.showInputDialog("Repeat your password");
+                if (!password.equals(repeatedPassword)) {
                     JOptionPane.showMessageDialog(null,"Input illegal, please try again!");
                 } else {
                     IOHandler.addUser(password, username);

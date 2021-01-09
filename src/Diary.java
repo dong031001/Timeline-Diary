@@ -1,7 +1,7 @@
 import java.time.Instant;
 import java.util.Date;
 
-public class Diary {
+public class Diary implements Comparable<Diary> {
 
     private int diaryID;
     private int authorID;
@@ -38,5 +38,24 @@ public class Diary {
 
     public int getDiaryID() {
         return diaryID;
+    }
+
+    @Override
+    public int compareTo(Diary o) {
+        if(this.creationDate.after(o.creationDate)) return 1;
+        if(this.creationDate.before(o.creationDate)) return -1;
+        return 0;
+    }
+
+    public Integer getUserID() {
+        return authorID;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getWeather() {
+        return weather;
     }
 }
